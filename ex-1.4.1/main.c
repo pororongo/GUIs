@@ -45,6 +45,16 @@ int main (int argc, char* args[])
 
     while (1) {
         SDL_WaitEvent(&evt);
+
+	const Uint8* currentKeyStates = SDL_GetKeyboardState( NULL );
+        if(currentKeyStates[ SDL_SCANCODE_LALT ] 
+	   && currentKeyStates[ SDL_SCANCODE_F4 ] ){
+	    SDL_DestroyRenderer(ren);
+            SDL_DestroyWindow(win);
+            SDL_Quit();
+            exit(EXIT_SUCCESS);
+        }
+
 	if (evt.type == SDL_WINDOWEVENT){
 	    if(evt.window.event == SDL_WINDOWEVENT_CLOSE){
          	SDL_DestroyRenderer(ren);
@@ -84,16 +94,11 @@ int main (int argc, char* args[])
                     	r.x += 5;
 		    }
                     break;
-              /* FINALIZACAO */
-		case SDLK_LALT && SDLK_F4:
-	      	    SDL_DestroyRenderer(ren);
-                    SDL_DestroyWindow(win);
-                    SDL_Quit();
-                    exit(EXIT_SUCCESS);
 	    
 	    }
 	
         }
+
         SDL_SetRenderDrawColor(ren, 255, 255, 255, 255);
         SDL_RenderClear(ren);
 
